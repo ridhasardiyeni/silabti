@@ -47,22 +47,15 @@ class LaporanController extends Controller
         return $pdf->download('laporan_barang_'.date('Y-m-d_H-i-s').'.pdf');
     }
 
-    public function trans(){
-        $datas = Trans::get();
-        
-        if(!empty($request->start_date)&& !empty($request->end_date)) {
-            $this->validate($request,[
-                'start_date'=> 'nullable|date',
-                'end_date' =>'nullable|date'
-                ]);
-
-
-        $start_date = Carbon::parse($request->start_date)->format('Y-m-d').'00:00:01';
-        $end_date = Carbon::parse($request->end_date)->format('Y-m-d').'23:59:59';
-
-        $datas = $datas->whereBetween('created_at',[$start_date, $end_date])->get();
+    public function trans(Request $request){
+        if(!empty($request->query('start_date'))&& !empty($request->query('end_date'))) {
+            $start_date = Carbon::parse($request->query('start_date'))->format('Y-m-d').'00:00:01';
+            $end_date = Carbon::parse($request->query('end_date'))->format('Y-m-d').'23:59:59';
+            $datas = Trans::where('tgl_pinjam','>=',$start_date)->where('tgl_pinjam','<=',$end_date)->get();
+        }else{
+            $datas = Trans::get();
         }
-        return view('laporan.transaksi',compact('datas','data'));
+        return view('laporan.transaksi',array('datas'=>$datas));
     }
 
     public function transPdf(Request $request)
