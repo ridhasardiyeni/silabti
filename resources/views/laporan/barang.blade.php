@@ -17,9 +17,66 @@
 <div class="row" style="margin-top: 20px;">
 <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
+                <?php 
+                $selMerk = request()->merk;
+                $selSatuan = request()->satuan;
+                $selKondisi = request()->kondisi;
 
+                if($selMerk && $selSatuan && $selKondisi){
+                  $getBarang = \App\Barang::where('merk',$selMerk)
+                                          ->where('satuan',$selSatuan)
+                                          ->where('kondisi_barang',$selKondisi)
+                                          ->get();
+                }elseif ($selMerk && $selSatuan) {
+                  $getBarang = \App\Barang::where('merk',$selMerk)
+                                          ->where('satuan',$selSatuan)
+                                          ->get();
+                }elseif ($selMerk && $selKondisi) {
+                  $getBarang = \App\Barang::where('merk',$selMerk)
+                                          ->where('kondisi_barang',$selKondisi)
+                                          ->get();
+                }elseif ($selSatuan && $selKondisi) {
+                  $getBarang = \App\Barang::where('satuan',$selSatuan)
+                                          ->where('kondisi_barang',$selKondisi)
+                                          ->get();
+
+                }elseif($selMerk){
+                  $getBarang = \App\Barang::where('merk',$selMerk)->get();
+                }elseif($selSatuan){
+                  $getBarang = \App\Barang::where('satuan',$selSatuan)->get();
+                }elseif($selKondisi){
+                  $getBarang = \App\Barang::where('kondisi_barang',$selKondisi)->get();
+                }else{
+                  $getBarang = \App\Barang::all();
+                }
+
+                $getMerk = \App\Barang::select('merk')->groupBy('merk')->get();
+                $getSatuan = \App\Barang::select('satuan')->groupBy('satuan')->get();
+                $getKondisi = \App\Barang::select('kondisi_barang')->groupBy('kondisi_barang')->get();
+                ?>
                 <div class="card-body">
                   <h2 class="card-title">Laporan Data Barang</h2>
+                  <select 
+                    onchange="document.location.href = '?merk='+this.value+'&satuan={{request()->satuan}}&kondisi={{request()->kondisi}}'">
+                    <option value="" selected disabled>merk/type</option>
+                    @foreach($getMerk as $merk)
+                    <option value="{{isset($merk->merk)?$merk->merk:''}}" {{$selMerk == $merk->merk ? 'selected="selected"':''}}>{{isset($merk->merk)?$merk->merk:''}}</option>
+                    @endforeach
+                  </select>
+                  <select 
+                    onchange="document.location.href = '?merk={{request()->merk}}&satuan='+this.value+'&kondisi={{request()->kondisi}}'">
+                    <option value="" selected disabled>satuan</option>
+                    @foreach($getSatuan as $satuan)
+                    <option value="{{isset($satuan->satuan)?$satuan->satuan:''}}" {{$selSatuan == $satuan->satuan ? 'selected="selected"':''}}>{{isset($satuan->satuan)?$satuan->satuan:''}}</option>
+                    @endforeach
+                  </select>
+                  <select 
+                    onchange="document.location.href = '?&merk={{request()->merk}}&satuan={{request()->satuan}}&kondisi='+this.value">
+                    <option value="" selected disabled>kondisi</option>
+                    @foreach($getKondisi as $kondisi)
+                    <option value="{{isset($kondisi->kondisi_barang)?$kondisi->kondisi_barang:''}}" {{$selKondisi == $kondisi->kondisi_barang ? 'selected="selected"':''}}>{{isset($kondisi->kondisi_barang)?$kondisi->kondisi_barang:''}}</option>
+                    @endforeach
+                  </select>
 
   <div class="col-md-2 pull-left">
     <a href="{{ url('laporan/barang/pdf') }}" class="btn btn-primary btn-rounded btn-fw"><b><i class="fa fa-download"></i> Export PDF</a></b>
@@ -66,7 +123,7 @@
                       </thead>
                       <tbody>
                       <?php $i=0; ?>
-                      @foreach($datas as $data)
+                      @foreach($getBarang as $data)
                         <tr>
                           <td>
                              <b>{{++$i}}.</b>

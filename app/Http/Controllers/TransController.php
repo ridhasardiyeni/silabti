@@ -187,7 +187,7 @@ class TransController extends Controller
      */
     public function destroy($id)
     {
-        Trans::find($id)->delete();
+        Detail::find($id)->delete();
         alert()->success('Berhasil.','Data telah dihapus!');
         return redirect()->route('trans.index');
     }

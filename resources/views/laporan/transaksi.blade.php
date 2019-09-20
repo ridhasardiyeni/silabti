@@ -8,7 +8,7 @@
 function filterDate(){
       let firstdate=document.getElementById('start-date').value
       let lastdate=document.getElementById('last-date').value
-      window.location.href='/laporan/transaksi?start_date='+firstdate+'&end_date='+lastdate
+      window.location.href='/silabti/public/laporan/transaksi?start-date='+firstdate+'&end-date='+lastdate
     }
 </script>
 @stop
@@ -34,25 +34,25 @@ function filterDate(){
           </div>
           <div class="form-group">
             <label for="">Mulai Tanggal</label>
-            <input type="date" value="{{app('request')->input('start_date')}}" id="start-date" name="start_date" class="form-control{{$errors->has('start_date')? 'is-invalid':''}}" id="start_date" value="{{request()->get('start_date')}}">
+            <input type="date" value="{{app('request')->input('start-date')}}" id="start-date" name="start-date" class="form-control{{$errors->has('start-date')? 'is-invalid':''}}" id="start-date" value="{{request()->get('start-date')}}">
           </div>
           &nbsp;&nbsp;
           <div class="form-group">
             <label for="">Sampai Tanggal</label>
-            <input type="date" value="{{app('request')->input('end_date')}}" id="last-date" name="end_date" class="form-control{{$errors->has('end_date')? 'is-invalid':''}}" id="end_date" value="{{request()->get('end_date')}}">
+            <input type="date" value="{{app('request')->input('end-date')}}" id="last-date" name="end-date" class="form-control{{$errors->has('end-date')? 'is-invalid':''}}" id="end-date" value="{{request()->get('end-date')}}">
           </div>
         </div>
         <div class="form-group">
           <button onclick="filterDate()" class="btn btn-primary btn-sm">Cari</button>
           <div class="btn-group dropdown">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="btn btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <b><i class="fa fa-download"></i> Export PDF</b>
             </button>
-              <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 30px, 0px);">
+             <!--  <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 30px, 0px);">
                 <a class="dropdown-item" href="{{url('laporan/transaksi/pdf')}}"> Semua Transaksi </a>
                 <a class="dropdown-item" href="{{url('laporan/transaksi/pdf?status=pinjam')}}"> Pempinjaman </a>
                 <a class="dropdown-item" href="{{url('laporan/transaksi/pdf?status=kembali')}}"> Pengembalian </a>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -70,7 +70,7 @@ function filterDate(){
               @foreach($datas as $d)
               <tr>
                 <td>{{$d->kode_transaksi}}</td>
-                <td>{{$d->user_id}}</td>
+                <td>{{$d->user->username}}</td>
                 <td>{{date('d F Y',strtotime($d->tgl_pinjam))}}</td>
               </tr>
               @endforeach

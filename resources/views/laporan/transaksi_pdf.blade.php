@@ -4,7 +4,12 @@
 	<title>Laporan Data Transaksi</title>
 </head>
 <body>
-<center><h3>LAPORAN DATA TRANSAKSI</h3></center>
+<center><b>Laporan Data Transaksi<br>
+Sistem Informasi Peminjaman Alat Lbor<br>
+Jurusan Teknologi Informasi (TI)<br>
+Politeknik Negeri Padang (PNP)</b>
+</center>
+<br><br>
  <table border="1">
                       <thead>
                         <tr>
@@ -72,5 +77,44 @@
                       @endforeach
                       </tbody>
                     </table>
+                    <br><br>
+                   
+                    <table align="right">
+                     <tr align="center">
+                       <td>
+                         Diketahui,
+                       </td>
+                     </tr>
+                     <tr align="center">
+                       <td>
+                         Kepala Labor Jurusan TI
+                       </td>
+                     </tr>
+                     <tr>
+                       <td>
+                         
+                       </td>
+                     </tr>
+                     <tr>
+                       <td>
+                         
+                       </td>
+                     </tr>
+                     <tr>
+                       <td>
+                         
+                       </td>
+                     </tr>
+                      <tr>
+                        <td>
+                         Rita Afyenni, S.Kom.,M.Kom
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          NIP.19700718 200801 2 010
+                        </td>
+                      </tr>
+                      </table>
 </body>
 </html>

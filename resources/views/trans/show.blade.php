@@ -104,11 +104,12 @@ $(document).ready(function() {
                            </td>
                            @if(Auth::user()->level=='admin')
                            <td>
-                           <form action="{{route('trans.destroy', $data)}}" method="post"> 
+                           <form action="{{route('trans.destroy', $data->id_detail)}}" method="post"> 
                           
                           @csrf
-                  
+                          
                           <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Anda yakin ingin menghapus data ini?')"><i class="mdi mdi-close"></i></button>
+
                         </form>
                            </td>
                            @endif

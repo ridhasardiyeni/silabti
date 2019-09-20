@@ -48,14 +48,20 @@ class LaporanController extends Controller
     }
 
     public function trans(Request $request){
-        if(!empty($request->query('start_date'))&& !empty($request->query('end_date'))) {
-            $start_date = Carbon::parse($request->query('start_date'))->format('Y-m-d').'00:00:01';
-            $end_date = Carbon::parse($request->query('end_date'))->format('Y-m-d').'23:59:59';
+
+       
+        if($request->query('start-date')!='' && $request->query('end-date')!='') {
+         // return $request->query('end_date');
+            $start_date = Carbon::parse($request->query('start-date'))->format('Y-m-d');
+            $end_date = Carbon::parse($request->query('end-date'))->format('Y-m-d');
             $datas = Trans::where('tgl_pinjam','>=',$start_date)->where('tgl_pinjam','<=',$end_date)->get();
+            // return $start_date;
         }else{
             $datas = Trans::get();
         }
+
         return view('laporan.transaksi',array('datas'=>$datas));
+
     }
 
     public function transPdf(Request $request)

@@ -11,7 +11,9 @@
                 $("#lookup, #lookup2").dataTable();
             });
          $(document).on('click', '.remove-tr', function(){  
-         $(this).parents('tr').remove();
+         // $((this).parents('tr').remove();)
+          // $(this).parent('div').remove();
+          $(this).parent().parent().parent().parent().remove();
         });
 
     function addItem(){
@@ -37,9 +39,9 @@
                         '<input id="jlh_pinjam" type="number" maxlength="6" class="form-control" name="jlh_pinjam[]" value="" required placeholder="Masukan Jumlah">'+
                     '</div>'+
                 '</div>'+
-                // '<div class="col-md-2">'+
-                //     '<button type="button" class="btn btn-danger remove-tr">-</button>'+
-                // '</div>'+
+                '<div class="col-md-2">'+
+                    '<button type="button" class="btn btn-danger remove-tr">-</button>'+
+                '</div>'+
             '</div>'+
         '</div> </div>');
     }
